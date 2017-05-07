@@ -459,6 +459,16 @@ frappe.Application = Class.extend({
 			})
 		}
 	},
+
+	print_document: function (html) {
+		var w = window.open();
+		w.document.write(html);
+		w.document.close();
+		setTimeout(function () {
+			w.print();
+			w.close();
+		}, 1000)
+	},
 });
 
 frappe.get_module = function(m, default_module) {
