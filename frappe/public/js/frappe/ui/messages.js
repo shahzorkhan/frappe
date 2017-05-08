@@ -250,7 +250,8 @@ frappe.hide_progress = function() {
 }
 
 // Floating Message
-frappe.show_alert = function(message, seconds=7) {
+frappe.show_alert = function(message, seconds) {
+	seconds = (typeof seconds !== 'undefined') ?  seconds : 7;
 	if(typeof message==='string') {
 		message = {
 			message: message

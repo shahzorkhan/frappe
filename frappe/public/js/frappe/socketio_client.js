@@ -151,6 +151,7 @@ frappe.socket = {
 		})
 	},
 	doc_open: function(doctype, docname) {
+		"use strict";
 		// notify that the user has opened this doc, if not already notified
 		if(!frappe.socket.last_doc
 			|| (frappe.socket.last_doc[0]!=doctype && frappe.socket.last_doc[0]!=docname)) {
