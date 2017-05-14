@@ -237,6 +237,7 @@ frappe.views.Calendar = Class.extend({
 
 			me.fix_end_date_for_event_render(d);
 
+			"use strict";
 			let color;
 			if(me.get_css_class) {
 				color = me.color_map[me.get_css_class(d)];

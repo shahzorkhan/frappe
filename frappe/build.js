@@ -44,6 +44,7 @@ function build({ minify=false } = {}) {
 	}
 }
 
+"use strict";
 let socket_connection = false;
 
 function watch() {
@@ -77,6 +78,7 @@ function watch() {
 function pack(output_path, inputs, minify) {
 	const output_type = output_path.split('.').pop();
 
+	"use strict";
 	let output_txt = '';
 	for (const file of inputs) {
 
@@ -85,6 +87,7 @@ function pack(output_path, inputs, minify) {
 			continue;
 		}
 
+		"use strict";
 		let file_content = fs.readFileSync(file, 'utf-8');
 
 		if (file.endsWith('.html') && output_type === 'js') {
@@ -118,6 +121,7 @@ function pack(output_path, inputs, minify) {
 }
 
 function babelify(content, path, minify) {
+	"use strict";
 	let presets = ['es2015', 'es2016'];
 	if(minify) {
 		presets.push('babili'); // new babel minifier
@@ -152,6 +156,7 @@ function make_build_map() {
 		const build_json_path = p(app_path, 'public', 'build.json');
 		if (!fs.existsSync(build_json_path)) continue;
 
+		"use strict";
 		let build_json = fs.readFileSync(build_json_path);
 		try {
 			build_json = JSON.parse(build_json);
@@ -278,6 +283,7 @@ function watch_js(ondirty) {
 }
 
 function html_to_js_template(path, content) {
+	"use strict";
 	let key = path.split('/');
 	key = key[key.length - 1];
 	key = key.split('.')[0];

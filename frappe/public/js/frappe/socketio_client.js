@@ -151,7 +151,6 @@ frappe.socket = {
 		})
 	},
 	doc_open: function(doctype, docname) {
-		"use strict";
 		// notify that the user has opened this doc, if not already notified
 		if(!frappe.socket.last_doc
 			|| (frappe.socket.last_doc[0]!=doctype && frappe.socket.last_doc[0]!=docname)) {
@@ -205,6 +204,7 @@ frappe.socket = {
 		frappe.socket.file_watcher = io.connect(host);
 		// css files auto reload
 		frappe.socket.file_watcher.on('reload_css', function(filename) {
+			"use strict";
 			let abs_file_path = "assets/" + filename;
 			const link = $(`link[href*="${abs_file_path}"]`);
 			abs_file_path = abs_file_path.split('?')[0] + '?v='+ moment();
