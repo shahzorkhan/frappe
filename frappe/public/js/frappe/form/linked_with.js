@@ -3,14 +3,13 @@
 
 frappe.provide("frappe.ui.form");
 
-"use strict";
-frappe.ui.form.LinkedWith = class LinkedWith {
+frappe.ui.form.LinkedWith = Class.extend({
 
-	constructor(opts) {
+	init: function(opts) {
 		$.extend(this, opts);
-	}
+	},
 
-	show() {
+	show: function() {
 		if(!this.dialog)
 			this.make_dialog();
 
@@ -20,9 +19,9 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 			</div>`);
 
 		this.dialog.show();
-	}
+	},
 
-	make_dialog() {
+	make_dialog: function() {
 		var me = this;
 
 		this.dialog = new frappe.ui.Dialog({
@@ -41,9 +40,9 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 				.then(function() { this.get_linked_docs()})
 				.then(function() { this.make_html()})
 		}
-	}
+	},
 
-	make_html() {
+	make_html: function() {
 		"use strict";
 		const linked_docs = this.frm.__linked_docs;
 
@@ -53,19 +52,19 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 			html = __("Not Linked to any record");
 		} else {
 			html = Object.keys(linked_docs).map(function(dt) {
-				return `<div class="list-item-table" style="margin-bottom: 15px">
-					${this.make_doc_head(dt)}
+				return `<div class="list-item-table" style="margin-bottom: 15px">\
+					${this.make_doc_head(dt)}\
 					${linked_docs[dt]
-						.map(function(doc) { this.make_doc_row(doc, dt)))
-						.join("")}
+						.map(function(doc) { this.make_doc_row(doc, dt)})
+						.join("")}\
 				</div>`;
 			});
 		}
 
 		$(this.dialog.body).html(html);
-	}
+	},
 
-	load_doctypes() {
+	load_doctypes: function() {
 		"use strict";
 		const already_loaded = Object.keys(locals.DocType);
 		let doctypes_to_load = [];
@@ -88,9 +87,9 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 		});
 
 		return Promise.all(promises);
-	}
+	},
 
-	links_not_permitted_or_missing() {
+	links_not_permitted_or_missing: function() {
 		var me = this;
 		"use strict";
 		let links = null;
@@ -113,9 +112,9 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 		return new Promise(
 			function(resolve, reject) { flag ? reject() : resolve()}
 		);
-	}
+	},
 
-	get_linked_doctypes() {
+	get_linked_doctypes: function() {
 		return new Promise(function(resolve, reject) {
 			if (this.frm.__linked_doctypes) {
 				resolve();
@@ -132,9 +131,9 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 				}
 			});
 		});
-	}
+	},
 
-	get_linked_docs() {
+	get_linked_docs: function() {
 		return frappe.call({
 			method: "frappe.desk.form.linked_with.get_linked_docs",
 			args: {
@@ -147,16 +146,16 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 				this.frm.__linked_docs = r.message || {};
 			}
 		});
-	}
+	},
 
-	make_doc_head(heading) {
+	make_doc_head: function(heading) {
 		return `<div class="list-item list-item--head">
 		<div class="list-item__content">
 			${heading}
 		</div></div>`;
-	}
+	},
 
-	make_doc_row(doc, doctype) {
+	make_doc_row: function(doc, doctype) {
 		return `<div class="list-item-container">
 			<div class="list-item">
 				<div class="list-item__content bold">
@@ -164,5 +163,5 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 				</div>
 			</div>
 		</div>`;
-	}
-}
+	},
+});
