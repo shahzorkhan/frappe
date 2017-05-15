@@ -1,3 +1,4 @@
+"use strict";
 const path = require('path');
 const fs = require('fs');
 const babel = require('babel-core');
@@ -44,7 +45,6 @@ function build({ minify=false } = {}) {
 	}
 }
 
-"use strict";
 let socket_connection = false;
 
 function watch() {
@@ -76,18 +76,16 @@ function watch() {
 }
 
 function pack(output_path, inputs, minify) {
+	"use strict";
 	const output_type = output_path.split('.').pop();
 
-	"use strict";
 	let output_txt = '';
 	for (const file of inputs) {
-
 		if (!fs.existsSync(file)) {
 			console.log('File not found: ', file);
 			continue;
 		}
 
-		"use strict";
 		let file_content = fs.readFileSync(file, 'utf-8');
 
 		if (file.endsWith('.html') && output_type === 'js') {
@@ -151,12 +149,12 @@ function minify_js(content, path) {
 }
 
 function make_build_map() {
+	"use strict";
 	const build_map = {};
 	for (const app_path of app_paths) {
 		const build_json_path = p(app_path, 'public', 'build.json');
 		if (!fs.existsSync(build_json_path)) continue;
 
-		"use strict";
 		let build_json = fs.readFileSync(build_json_path);
 		try {
 			build_json = JSON.parse(build_json);

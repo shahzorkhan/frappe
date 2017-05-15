@@ -90,8 +90,8 @@ frappe.ui.form.LinkedWith = Class.extend({
 	},
 
 	links_not_permitted_or_missing: function() {
-		var me = this;
 		"use strict";
+		var me = this;
 		let links = null;
 
 		links =

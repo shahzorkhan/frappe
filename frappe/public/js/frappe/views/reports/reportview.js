@@ -312,6 +312,7 @@ frappe.views.ReportView = frappe.ui.BaseList.extend({
 	build_columns: function() {
 		var me = this;
 		return $.map(this.columns, function(c) {
+			"use strict";
 			var docfield = frappe.meta.docfield_map[c[1] || me.doctype][c[0]];
 			if(!docfield) {
 				var docfield = frappe.model.get_std_field(c[0]);
@@ -324,7 +325,6 @@ frappe.views.ReportView = frappe.ui.BaseList.extend({
 			}
 			if(!docfield) return;
 
-			"use strict";
 			let coldef = {
 				id: c[0],
 				field: c[0],
