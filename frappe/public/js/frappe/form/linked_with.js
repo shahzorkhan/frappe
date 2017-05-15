@@ -29,16 +29,16 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 			title: __("Linked With")
 		});
 
-		this.dialog.on_page_show = () => {
+		this.dialog.on_page_show = function() {
 			// execute ajax calls sequentially
 			// 1. get linked doctypes
 			// 2. load all doctypes
 			// 3. load linked docs
 			this.get_linked_doctypes()
-				.then(() => this.load_doctypes())
-				.then(() => this.links_not_permitted_or_missing())
-				.then(() => this.get_linked_docs())
-				.then(() => this.make_html())
+				.then(function() { this.load_doctypes()})
+				.then(function() { this.links_not_permitted_or_missing()})
+				.then(function() { this.get_linked_docs()})
+				.then(function() { this.make_html()})
 		}
 	}
 
@@ -51,11 +51,11 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 		if(Object.keys(linked_docs).length === 0) {
 			html = __("Not Linked to any record");
 		} else {
-			html = Object.keys(linked_docs).map(dt => {
+			html = Object.keys(linked_docs).map(function(dt) {
 				return `<div class="list-item-table" style="margin-bottom: 15px">
 					${this.make_doc_head(dt)}
 					${linked_docs[dt]
-						.map(doc => this.make_doc_row(doc, dt))
+						.map(function(doc) { this.make_doc_row(doc, dt)))
 						.join("")}
 				</div>`;
 			});
@@ -72,12 +72,12 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 		if (this.frm.__linked_doctypes) {
 			doctypes_to_load =
 				Object.keys(this.frm.__linked_doctypes)
-				.filter(doctype => !already_loaded.includes(doctype));
+				.filter(function(doctype) { !already_loaded.includes(doctype)});
 		}
 
 		// load all doctypes asynchronously using with_doctype
-		const promises = doctypes_to_load.map(dt => {
-			return frappe.model.with_doctype(dt, () => {
+		const promises = doctypes_to_load.map(function(dt) {
+			return frappe.model.with_doctype(dt, function() {
 				if(frappe.listview_settings[dt]) {
 					// add additional fields to __linked_doctypes
 					this.frm.__linked_doctypes[dt].add_fields =
@@ -110,12 +110,12 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 
 		// reject Promise if not_permitted or missing
 		return new Promise(
-			(resolve, reject) => flag ? reject() : resolve()
+			function(resolve, reject) { flag ? reject() : resolve()}
 		);
 	}
 
 	get_linked_doctypes() {
-		return new Promise((resolve, reject) => {
+		return new Promise(function(resolve, reject) {
 			if (this.frm.__linked_doctypes) {
 				resolve();
 			}
@@ -125,7 +125,7 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 				args: {
 					doctype: this.frm.doctype
 				},
-				callback: (r) => {
+				callback: function(r) {
 					this.frm.__linked_doctypes = r.message;
 					resolve();
 				}
@@ -142,7 +142,7 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 				linkinfo: this.frm.__linked_doctypes,
 				for_doctype: this.for_doctype
 			},
-			callback: (r) => {
+			callback: function(r) {
 				this.frm.__linked_docs = r.message || {};
 			}
 		});

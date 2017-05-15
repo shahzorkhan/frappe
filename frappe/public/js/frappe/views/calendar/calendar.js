@@ -215,7 +215,7 @@ frappe.views.Calendar = Class.extend({
 	prepare_events: function(events) {
 		var me = this;
 
-		return (events || []).map(d => {
+		return (events || []).map(function(d) {
 			d.id = d.name;
 			d.editable = frappe.model.can_write(d.doctype || me.doctype);
 

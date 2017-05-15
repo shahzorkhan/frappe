@@ -333,20 +333,20 @@ frappe.Application = Class.extend({
 					{ fieldtype:'Password', fieldname:'password',
 						label: __('Please Enter Your Password to Continue') },
 				],
-				onhide: () => {
+				onhide: function() {
 					if (!dialog.logged_in) {
 						frappe.app.redirect_to_login();
 					}
 				}
 			});
-			dialog.set_primary_action(__('Login'), () => {
+			dialog.set_primary_action(__('Login'), function() {
 				frappe.call({
 					method: 'login',
 					args: {
 						usr: frappe.session.user,
 						pwd: dialog.get_values().password
 					},
-					callback: (r) => {
+					callback: function(r) {
 						if (r.message==='Logged In') {
 							dialog.logged_in = true;
 
@@ -358,7 +358,7 @@ frappe.Application = Class.extend({
 						}
 						dialog.hide();
 					},
-					statusCode: () => {
+					statusCode: function() {
 						dialog.hide();
 					}
 				});

@@ -223,10 +223,10 @@ frappe.views.ListRenderer = Class.extend({
 		}
 
 		// Remove duplicates
-		this.columns = this.columns.uniqBy(col => col.title);
+		this.columns = this.columns.uniqBy(function(col) { col.title});
 
 		// Remove TextEditor field columns
-		this.columns = this.columns.filter(col => col.fieldtype !== 'Text Editor')
+		this.columns = this.columns.filter(function(col) {col.fieldtype !== 'Text Editor'})
 
 		// Limit number of columns to 4
 		this.columns = this.columns.slice(0, 4);
@@ -315,7 +315,7 @@ frappe.views.ListRenderer = Class.extend({
 		`);
 		me.wrapper.append($list_items);
 
-		values.map(value => {
+		values.map(function(value) {
 			const $item = $(this.get_item_html(value));
 			const $item_container = $('<div class="list-item-container">').append($item);
 
@@ -334,7 +334,7 @@ frappe.views.ListRenderer = Class.extend({
 	// returns html for a data item,
 	// usually based on a template
 	get_item_html: function (data) {
-		var main = this.columns.map(column =>
+		var main = this.columns.map(function(column) {
 			frappe.render_template('list_item_main', {
 				data: data,
 				col: column,
@@ -343,7 +343,7 @@ frappe.views.ListRenderer = Class.extend({
 				subject: this.get_subject_html(data, true),
 				indicator: this.get_indicator_html(data),
 			})
-		).join("");
+		}).join("");
 
 		return frappe.render_template('list_item_row', {
 			data: data,
@@ -355,12 +355,12 @@ frappe.views.ListRenderer = Class.extend({
 	},
 
 	get_header_html: function () {
-		var main = this.columns.map(column =>
+		var main = this.columns.map(function(column){
 			frappe.render_template('list_item_main_head', {
 				col: column,
 				_checkbox: ((frappe.model.can_delete(this.doctype) || this.settings.selectable)
 					&& !this.no_delete)
-			})
+			})}
 		).join("");
 
 		return frappe.render_template('list_item_row_head', { main: main, list: this });
@@ -507,7 +507,7 @@ frappe.views.ListRenderer = Class.extend({
 			// prepare data before rendering view
 			values = values.map(me.prepare_data.bind(this));
 			// remove duplicates
-			values = values.uniqBy(value => value.name);
+			values = values.uniqBy(function(value){ value.name});
 
 			if (lib_exists) {
 				me.load_lib(function () {

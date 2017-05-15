@@ -1723,8 +1723,8 @@ frappe.ui.form.ControlTextEditor = frappe.ui.form.ControlCode.extend({
 
 					var files = [].slice.call(dataTransfer.files);
 
-					files.forEach(file => {
-						me.get_image(file, (url) => {
+					files.forEach(function(file) {
+						me.get_image(file, function(url) {
 							me.editor.summernote('insertImage', url, file.name);
 						});
 					});
@@ -1821,7 +1821,7 @@ frappe.ui.form.ControlTextEditor = frappe.ui.form.ControlCode.extend({
 	},
 
 	setup_image_dialog: function() {
-		this.note_editor.find('[data-original-title="Image"]').on('click', (e) => {
+		this.note_editor.find('[data-original-title="Image"]').on('click', function(e) {
 			if(!this.image_dialog) {
 				this.image_dialog = new frappe.ui.Dialog({
 					title: __("Image"),

@@ -46,11 +46,11 @@ frappe.provide("frappe.views");
 			update_cards: function (updater, cards) {
 				var state = this;
 				var _cards =
-					cards.map(card => {
+					cards.map(function(card) {
 						return prepare_card(card, state);
 					})
 					.concat(this.cards)
-					.uniqBy(card => card.name);
+					.uniqBy(function(card){ card.name});
 
 				updater.set({
 					cards: _cards
@@ -188,7 +188,7 @@ frappe.provide("frappe.views");
 						board_name: this.board.name,
 						order: order
 					},
-					callback: (r) => {
+					callback: function(r) {
 						var state = this;
 						var board = r.message[0];
 						var updated_cards = r.message[1];

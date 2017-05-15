@@ -122,7 +122,7 @@ frappe.views.InboxView = frappe.views.ListRenderer.extend({
 			}
 			frappe.set_route("List", "Communication", "Inbox", email_account);
 		} else if(route[3] && route[3] != "All Accounts" &&
-			!frappe.boot.email_accounts.find(b => b.email_account === route[3])) {
+			!frappe.boot.email_accounts.find(function(b){ b.email_account === route[3]})) {
 			// frappe.throw(__(`Email Account <b>${route[3] || ''}</b> not found`));
 			return ''
 		}

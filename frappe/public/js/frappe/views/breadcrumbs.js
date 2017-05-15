@@ -34,7 +34,7 @@ frappe.breadcrumbs = {
 		var breadcrumbs = frappe.breadcrumbs.all[frappe.breadcrumbs.current_page()];
 
 		if(!frappe.visible_modules) {
-			frappe.visible_modules = $.map(frappe.get_desktop_icons(true), (m) => { return m.module_name; });
+			frappe.visible_modules = $.map(frappe.get_desktop_icons(true),function(m) { return m.module_name; });
 		}
 
 		var $breadcrumbs = $("#navbar-breadcrumbs").empty();
