@@ -73,7 +73,7 @@ frappe.upload = {
 					</div>
 				`);
 				var file_pills = file_array.map(
-					function(file) { frappe.upload.make_file_row(file, opts)}
+					function(file) { frappe.upload.make_file_row(file, opts.show_private)}
 				);
 				$uploaded_files_wrapper.append(file_pills);
 			} else {
@@ -154,7 +154,7 @@ frappe.upload = {
 			}
 		});
 	},
-	make_file_row: function(file, { show_private } = {}) {
+	make_file_row: function(file, show_private ) {
 		var template = `
 			<div class="list-item-container" data-filename="${file.name}">
 				<div class="list-item">
