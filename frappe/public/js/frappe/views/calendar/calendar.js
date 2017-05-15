@@ -217,6 +217,7 @@ frappe.views.Calendar = Class.extend({
 		var me = this;
 
 		return (events || []).map(function(d) {
+			"use strict";
 			d.id = d.name;
 			d.editable = frappe.model.can_write(d.doctype || me.doctype);
 
@@ -238,7 +239,6 @@ frappe.views.Calendar = Class.extend({
 
 			me.fix_end_date_for_event_render(d);
 
-			"use strict";
 			let color;
 			if(me.get_css_class) {
 				color = me.color_map[me.get_css_class(d)];
