@@ -280,7 +280,9 @@ frappe.ui.FilterList = Class.extend({
 						me.add_filter(me.doctype, name, '=', moment(dateObj).format('YYYY-MM-DD'));
 						me.base_list.run();
 					} else if(dateObj.length===2 && date.datepicker.opts.range===true) {
-						var [date1, date2] = [moment(dateObj[0]).format('YYYY-MM-DD'), moment(dateObj[1]).format('YYYY-MM-DD')];
+						var array1 = [moment(dateObj[0]).format('YYYY-MM-DD'), moment(dateObj[1]).format('YYYY-MM-DD')];
+						var date1 = array1[0];
+						var date2 = array1[1];
 						if(date1==date2) {
 							me.add_filter(me.doctype, name, '=', date1);
 						} else {

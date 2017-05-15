@@ -3,6 +3,7 @@
 
 frappe.provide("frappe.ui.form");
 
+"use strict";
 frappe.ui.form.LinkedWith = class LinkedWith {
 
 	constructor(opts) {
@@ -43,9 +44,9 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 	}
 
 	make_html() {
+		"use strict";
 		const linked_docs = this.frm.__linked_docs;
 
-		"use strict";
 		let html;
 
 		if(Object.keys(linked_docs).length === 0) {
@@ -65,8 +66,8 @@ frappe.ui.form.LinkedWith = class LinkedWith {
 	}
 
 	load_doctypes() {
-		const already_loaded = Object.keys(locals.DocType);
 		"use strict";
+		const already_loaded = Object.keys(locals.DocType);
 		let doctypes_to_load = [];
 
 		if (this.frm.__linked_doctypes) {

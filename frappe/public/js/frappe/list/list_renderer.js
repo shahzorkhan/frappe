@@ -316,6 +316,7 @@ frappe.views.ListRenderer = Class.extend({
 		me.wrapper.append($list_items);
 
 		values.map(function(value) {
+			"use strict";
 			const $item = $(this.get_item_html(value));
 			const $item_container = $('<div class="list-item-container">').append($item);
 

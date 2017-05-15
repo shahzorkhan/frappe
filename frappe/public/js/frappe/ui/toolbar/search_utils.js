@@ -276,7 +276,8 @@ frappe.search.utils = {
 		return out;
     },
 
-    get_global_results: function (keywords, start, limit, doctype = "") {
+    get_global_results: function (keywords, start, limit, doctype) {
+        doctype = (typeof doctype !== 'undefined') ?  doctype : "";
         var me = this;
         function get_results_sets(data) {
             var results_sets = [], result, set;

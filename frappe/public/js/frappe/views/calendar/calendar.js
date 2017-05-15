@@ -169,6 +169,7 @@ frappe.views.Calendar = Class.extend({
 			},
 			dayClick: function(date, jsEvent, view) {
 				if(view.name === 'month') {
+					"use strict";
 					const $date_cell = $('td[data-date=' + date.format('YYYY-MM-DD') + "]");
 
 					if($date_cell.hasClass('date-clicked')) {

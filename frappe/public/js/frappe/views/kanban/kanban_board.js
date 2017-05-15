@@ -179,6 +179,7 @@ frappe.provide("frappe.views");
 			},
 			update_order: function(updater, order) {
 				// cache original order
+				"use strict";
 				const _cards = this.cards.slice();
 				const _columns = this.columns.slice();
 				

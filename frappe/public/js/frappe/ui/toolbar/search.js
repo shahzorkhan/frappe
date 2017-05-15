@@ -249,7 +249,9 @@ frappe.search.SearchDialog = Class.extend({
 			}
 		};
 		if(results[0].image) margin_more = "20px";
-		var [section_length, col_width] = are_expansive ? [3, "12"] : [4, "6"];
+		var array1 = are_expansive ? [3, "12"] : [4, "6"];
+		section_length = array1[0];
+		col_width = array1[1];
 
 		// check state of last summary section
 		if(this.full_lists['All Results'].find('.module-section').last().find('.col-sm-6').length !== 1
@@ -353,7 +355,7 @@ frappe.search.SearchDialog = Class.extend({
 		global_search: {
 			input_placeholder: __("Global Search"),
 			empty_state_text: __("Search for anything"),
-			no_results_status: function(keyword) { __("<p>No results found for '" + keyword + "' in Global Search</p>"}),
+			no_results_status: function(keyword) { __("<p>No results found for '" + keyword + "' in Global Search</p>")},
 
 			get_results: function(keywords, callback) {
 				var start = 0, limit = 100;
