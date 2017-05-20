@@ -10,13 +10,13 @@ frappe.start_app = function() {
 }
 
 $(document).ready(function() {
-	if(!frappe.utils.supportsES6) {
-		frappe.msgprint({
-			indicator: 'red',
-			title: __('Browser not supported'),
-			message: __('Some of the features might not work in your browser. Please update your browser to the latest version.')
-		});
-	}
+//	if(!frappe.utils.supportsES6) {
+//		frappe.msgprint({
+//			indicator: 'red',
+//			title: __('Browser not supported'),
+//			message: __('Some of the features might not work in your browser. Please update your browser to the latest version.')
+//		});
+//	}
 	frappe.start_app();
 });
 
