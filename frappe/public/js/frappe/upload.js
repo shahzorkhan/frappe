@@ -53,7 +53,7 @@ frappe.upload = {
 				$uploaded_files_wrapper.removeClass('hidden').empty();
 
 				file_array = file_array.map(
-					function(file) { Object.assign(file, {is_private: opts.is_private || 0})}
+					function(file) { return Object.assign(file, {is_private: opts.is_private || 0})}
 				)
 				$upload.data('attached_files', file_array);
 
@@ -73,7 +73,7 @@ frappe.upload = {
 					</div>
 				`);
 				var file_pills = file_array.map(
-					function(file) { frappe.upload.make_file_row(file, opts.show_private)}
+					function(file) { return frappe.upload.make_file_row(file, opts.show_private)}
 				);
 				$uploaded_files_wrapper.append(file_pills);
 			} else {
@@ -109,7 +109,7 @@ frappe.upload = {
 			}
 			else if ($target.is('.uploaded-file-remove, .fa-remove')) {
 				// remove file from attached_files object
-				attached_files = attached_files.filter(function(file) { file.name !== filename });
+				attached_files = attached_files.filter(function(file) { return file.name !== filename });
 				$upload.data('attached_files', attached_files);
 
 				// remove row from dom

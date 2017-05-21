@@ -223,10 +223,10 @@ frappe.views.ListRenderer = Class.extend({
 		}
 
 		// Remove duplicates
-		this.columns = this.columns.uniqBy(function(col) { col.title});
+		this.columns = this.columns.uniqBy(function(col) { return col.title});
 
 		// Remove TextEditor field columns
-		this.columns = this.columns.filter(function(col) {col.fieldtype !== 'Text Editor'})
+		this.columns = this.columns.filter(function(col) {return col.fieldtype !== 'Text Editor'})
 
 		// Limit number of columns to 4
 		this.columns = this.columns.slice(0, 4);
@@ -301,7 +301,7 @@ frappe.views.ListRenderer = Class.extend({
 				return;
 			}
 
-			var link = $(this).parent().find('a.list-id').get(0);
+			var link = $(me).parent().find('a.list-id').get(0);
 			window.location.href = link.href;
 			return false;
 		});
@@ -317,16 +317,16 @@ frappe.views.ListRenderer = Class.extend({
 
 		values.map(function(value) {
 			"use strict";
-			const $item = $(this.get_item_html(value));
+			const $item = $(me.get_item_html(value));
 			const $item_container = $('<div class="list-item-container">').append($item);
 
 			$list_items.append($item_container);
 
-			if (this.settings.post_render_item) {
-				this.settings.post_render_item(this, $item_container, value);
+			if (me.settings.post_render_item) {
+				me.settings.post_render_item(me, $item_container, value);
 			}
 
-			this.render_tags($item_container, value);
+			me.render_tags($item_container, value);
 		});
 
 		this.setup_filterable();
@@ -335,14 +335,15 @@ frappe.views.ListRenderer = Class.extend({
 	// returns html for a data item,
 	// usually based on a template
 	get_item_html: function (data) {
+	    var me = this;
 		var main = this.columns.map(function(column) {
-			frappe.render_template('list_item_main', {
+			return frappe.render_template('list_item_main', {
 				data: data,
 				col: column,
 				value: data[column.fieldname],
-				formatters: this.settings.formatters,
-				subject: this.get_subject_html(data, true),
-				indicator: this.get_indicator_html(data),
+				formatters: me.settings.formatters,
+				subject: me.get_subject_html(data, true),
+				indicator: me.get_indicator_html(data),
 			})
 		}).join("");
 
@@ -356,11 +357,12 @@ frappe.views.ListRenderer = Class.extend({
 	},
 
 	get_header_html: function () {
+	    var me = this;
 		var main = this.columns.map(function(column){
-			frappe.render_template('list_item_main_head', {
+			return frappe.render_template('list_item_main_head', {
 				col: column,
-				_checkbox: ((frappe.model.can_delete(this.doctype) || this.settings.selectable)
-					&& !this.no_delete)
+				_checkbox: ((frappe.model.can_delete(me.doctype) || me.settings.selectable)
+					&& !me.no_delete)
 			})}
 		).join("");
 
@@ -508,7 +510,7 @@ frappe.views.ListRenderer = Class.extend({
 			// prepare data before rendering view
 			values = values.map(me.prepare_data.bind(this));
 			// remove duplicates
-			values = values.uniqBy(function(value){ value.name});
+			values = values.uniqBy(function(value){ return value.name});
 
 			if (lib_exists) {
 				me.load_lib(function () {

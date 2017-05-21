@@ -1821,9 +1821,10 @@ frappe.ui.form.ControlTextEditor = frappe.ui.form.ControlCode.extend({
 	},
 
 	setup_image_dialog: function() {
+		var me = this;
 		this.note_editor.find('[data-original-title="Image"]').on('click', function(e) {
-			if(!this.image_dialog) {
-				this.image_dialog = new frappe.ui.Dialog({
+			if(!me.image_dialog) {
+				me.image_dialog = new frappe.ui.Dialog({
 					title: __("Image"),
 					fields: [
 						{fieldtype:"HTML", fieldname:"upload_area"},
@@ -1833,25 +1834,25 @@ frappe.ui.form.ControlTextEditor = frappe.ui.form.ControlCode.extend({
 				});
 			}
 
-			this.image_dialog.show();
-			this.image_dialog.get_field("upload_area").$wrapper.empty();
+			me.image_dialog.show();
+			me.image_dialog.get_field("upload_area").$wrapper.empty();
 
 			// select from existing attachments
-			var attachments = this.frm && this.frm.attachments.get_attachments() || [];
-			var select = this.image_dialog.get_field("select");
+			var attachments = me.frm && me.frm.attachments.get_attachments() || [];
+			var select = me.image_dialog.get_field("select");
 			if(attachments.length) {
 				attachments = $.map(attachments, function(o) { return o.file_url; })
 				select.df.options = [""].concat(attachments);
 				select.toggle(true);
-				this.image_dialog.get_field("or_attach").toggle(true);
+				me.image_dialog.get_field("or_attach").toggle(true);
 				select.refresh();
 			} else {
-				this.image_dialog.get_field("or_attach").toggle(false);
+				me.image_dialog.get_field("or_attach").toggle(false);
 				select.toggle(false);
 			}
 			select.$input.val("");
 
-			this.set_upload_options();
+			me.set_upload_options();
 			frappe.upload.make(this.upload_options);
 		});
 	}

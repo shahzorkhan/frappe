@@ -50,7 +50,7 @@ frappe.provide("frappe.views");
 						return prepare_card(card, state);
 					})
 					.concat(this.cards)
-					.uniqBy(function(card){ card.name});
+					.uniqBy(function(card){ return card.name});
 
 				updater.set({
 					cards: _cards

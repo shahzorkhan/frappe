@@ -160,7 +160,7 @@ frappe.views.ListSidebar = Class.extend({
 					fieldtype: 'Select',
 					fieldname: 'field_name',
 					label: __('Columns based on'),
-					options: select_fields.map(function(df){ df.label}).join('\n'),
+					options: select_fields.map(function(df){ return df.label}).join('\n'),
 					default: select_fields[0]
 				},
 				{
@@ -201,7 +201,7 @@ frappe.views.ListSidebar = Class.extend({
 					} else {
 						var field_name =
 							select_fields
-								.find(function(df){ df.label === values.field_name})
+								.find(function(df){ return df.label === values.field_name})
 								.fieldname;
 					}
 

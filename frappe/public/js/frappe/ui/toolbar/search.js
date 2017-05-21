@@ -294,6 +294,7 @@ frappe.search.SearchDialog = Class.extend({
 			$result.append('<div class="result-image"><div class="flex-text"><span>'+ frappe.get_abbr(result.label) +'</span></div></div>');
 		}
 
+		var me = this;
 		var title_html = '<a '+ get_link(result) +' class="module-section-link small">'+ result.label +'</a>';
 		var $result_text = $('<div style="display: inline-block;"></div>');
 		if(result.description) {
@@ -305,7 +306,7 @@ frappe.search.SearchDialog = Class.extend({
 				frappe.route_options = result.route_options;
 			}
 			$result_text.on('click', function(e)  {
-				this.search_dialog.hide();
+				me.search_dialog.hide();
 				if(result.onclick) {
 					result.onclick(result.match);
 				} else {
@@ -355,7 +356,7 @@ frappe.search.SearchDialog = Class.extend({
 		global_search: {
 			input_placeholder: __("Global Search"),
 			empty_state_text: __("Search for anything"),
-			no_results_status: function(keyword) { __("<p>No results found for '" + keyword + "' in Global Search</p>")},
+			no_results_status: function(keyword) { return __("<p>No results found for '" + keyword + "' in Global Search</p>")},
 
 			get_results: function(keywords, callback) {
 				var start = 0, limit = 100;
@@ -375,7 +376,7 @@ frappe.search.SearchDialog = Class.extend({
 		help: {
 			input_placeholder: __("Search Help"),
 			empty_state_text: __("Search the docs"),
-			no_results_status: function(keyword) { __("<p>No results found for '" + keyword +
+			no_results_status: function(keyword) { return __("<p>No results found for '" + keyword +
 				"' in Help</p><p>Would you like to search <a class='switch-to-global-search text-muted' "+
 				"style='text-decoration: underline;'>globally</a>" +
 				" or the <a href='https://discuss.erpnext.com' class='forum-link text-muted' " +

@@ -34,11 +34,11 @@ frappe.ui.form.LinkedWith = Class.extend({
 			// 1. get linked doctypes
 			// 2. load all doctypes
 			// 3. load linked docs
-			this.get_linked_doctypes()
-				.then(function() { this.load_doctypes()})
-				.then(function() { this.links_not_permitted_or_missing()})
-				.then(function() { this.get_linked_docs()})
-				.then(function() { this.make_html()})
+			me.get_linked_doctypes()
+				.then(function() { return me.load_doctypes()})
+				.then(function() { return me.links_not_permitted_or_missing()})
+				.then(function() { return me.get_linked_docs()})
+				.then(function() { return me.make_html()})
 		}
 	},
 
@@ -47,15 +47,15 @@ frappe.ui.form.LinkedWith = Class.extend({
 		const linked_docs = this.frm.__linked_docs;
 
 		let html;
-
+        var me = this;
 		if(Object.keys(linked_docs).length === 0) {
 			html = __("Not Linked to any record");
 		} else {
 			html = Object.keys(linked_docs).map(function(dt) {
 				return `<div class="list-item-table" style="margin-bottom: 15px">\
-					${this.make_doc_head(dt)}\
+					${me.make_doc_head(dt)}\
 					${linked_docs[dt]
-						.map(function(doc) { this.make_doc_row(doc, dt)})
+						.map(function(doc) { return me.make_doc_row(doc, dt)})
 						.join("")}\
 				</div>`;
 			});
@@ -72,15 +72,16 @@ frappe.ui.form.LinkedWith = Class.extend({
 		if (this.frm.__linked_doctypes) {
 			doctypes_to_load =
 				Object.keys(this.frm.__linked_doctypes)
-				.filter(function(doctype) { !already_loaded.includes(doctype)});
+				.filter(function(doctype) { return !already_loaded.includes(doctype)});
 		}
 
+        var me = this;
 		// load all doctypes asynchronously using with_doctype
 		const promises = doctypes_to_load.map(function(dt) {
 			return frappe.model.with_doctype(dt, function() {
 				if(frappe.listview_settings[dt]) {
 					// add additional fields to __linked_doctypes
-					this.frm.__linked_doctypes[dt].add_fields =
+					me.frm.__linked_doctypes[dt].add_fields =
 						frappe.listview_settings[dt].add_fields;
 				}
 			});
@@ -110,23 +111,24 @@ frappe.ui.form.LinkedWith = Class.extend({
 
 		// reject Promise if not_permitted or missing
 		return new Promise(
-			function(resolve, reject) { flag ? reject() : resolve()}
+			function(resolve, reject) { return flag ? reject() : resolve()}
 		);
 	},
 
 	get_linked_doctypes: function() {
+	    var me = this;
 		return new Promise(function(resolve, reject) {
-			if (this.frm.__linked_doctypes) {
+			if (me.frm.__linked_doctypes) {
 				resolve();
 			}
 
 			frappe.call({
 				method: "frappe.desk.form.linked_with.get_linked_doctypes",
 				args: {
-					doctype: this.frm.doctype
+					doctype: me.frm.doctype
 				},
 				callback: function(r) {
-					this.frm.__linked_doctypes = r.message;
+					me.frm.__linked_doctypes = r.message;
 					resolve();
 				}
 			});
@@ -134,6 +136,7 @@ frappe.ui.form.LinkedWith = Class.extend({
 	},
 
 	get_linked_docs: function() {
+	    var me = this;
 		return frappe.call({
 			method: "frappe.desk.form.linked_with.get_linked_docs",
 			args: {
@@ -143,7 +146,7 @@ frappe.ui.form.LinkedWith = Class.extend({
 				for_doctype: this.for_doctype
 			},
 			callback: function(r) {
-				this.frm.__linked_docs = r.message || {};
+				me.frm.__linked_docs = r.message || {};
 			}
 		});
 	},

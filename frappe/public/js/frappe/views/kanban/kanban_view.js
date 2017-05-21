@@ -44,7 +44,7 @@ frappe.views.KanbanView = frappe.views.ListRenderer.extend({
 		var board_name = this.get_board_name();
 		if (!frappe.kanban_filters[board_name]) {
 			var kb = this.meta.__kanban_boards.find(
-				function(board) { board.name === board_name}
+				function(board) { return board.name === board_name}
 			);
 			frappe.kanban_filters[board_name] = JSON.parse(kb && kb.filters || '[]');
 		}
