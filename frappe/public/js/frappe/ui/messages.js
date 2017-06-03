@@ -267,7 +267,10 @@ frappe.show_alert = function(message, seconds) {
 		message_html = message.message;
 	}
 
-	var div = $('<div class="alert desk-alert"><span class="alert-message"></span><a class="close">&times;</a></div>'');
+	var div = $(`
+		<div class="alert desk-alert">
+			<span class="alert-message"></span><a class="close">&times;</a>
+		</div>`);
 
 	div.find('.alert-message').append(message_html);
 

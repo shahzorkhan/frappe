@@ -132,10 +132,10 @@ frappe.views.ListSidebar = Class.extend({
 				$('<li role="separator" class="divider"></li>').appendTo($dropdown);
 				divider = true;
 			}
-			$('<li><a href="#${route}">'+
-			'	<span>${__(board.name)}</span>'+
-			'	${board.private ? \'<i class="fa fa-lock fa-fw text-warning"></i>\' : \'\'}'+
-			'</a></li>').appendTo($dropdown);
+			$(`<li><a href="#${route}">
+				<span>${__(board.name)}</span>
+				${board.private ? '<i class="fa fa-lock fa-fw text-warning"></i>' : ''}
+			</a></li>`).appendTo($dropdown);
 		});
 
 		$dropdown.find('.new-kanban-board').click(function() {

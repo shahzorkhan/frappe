@@ -149,7 +149,7 @@ frappe.views.ListView = frappe.ui.BaseList.extend({
 
 		this.$page = $(this.parent).css({ 'min-height': '400px' });
 
-		$("<div class='frappe-list-area'></div>")
+		$(`<div class='frappe-list-area'></div>`)
 			.appendTo(this.page.main);
 
 		this.page.main.addClass('listview-main-section');
@@ -378,7 +378,7 @@ frappe.views.ListView = frappe.ui.BaseList.extend({
 			this.list_renderer.settings.list_view_doc(this);
 		} else {
 			doctype = this.list_renderer.no_result_doctype? this.list_renderer.no_result_doctype: this.doctype
-			$(this.wrapper).on('click', "button[list_view_doc='${doctype}']", function () {
+			$(this.wrapper).on('click', `button[list_view_doc='${doctype}']`, function () {
 				if (me.list_renderer.make_new_doc)
 					me.list_renderer.make_new_doc()
 				else

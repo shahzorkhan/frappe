@@ -206,7 +206,7 @@ frappe.socket = {
 		frappe.socket.file_watcher.on('reload_css', function(filename) {
 			"use strict";
 			let abs_file_path = "assets/" + filename;
-			const link = $("link[href*="${abs_file_path}"]");
+			const link = $(`link[href*="${abs_file_path}"]`);
 			abs_file_path = abs_file_path.split('?')[0] + '?v='+ moment();
 			link.attr('href', abs_file_path);
 			frappe.show_alert({
@@ -217,7 +217,9 @@ frappe.socket = {
 		// js files show alert
 		frappe.socket.file_watcher.on('reload_js', function(filename) {
 			filename = "assets/" + filename;
-			var msg = $("<span>${filename} changed <a data-action="reload">Click to Reload</a></span>")
+			var msg = $(`
+				<span>${filename} changed <a data-action="reload">Click to Reload</a></span>
+			`)
 			msg.find('a').click(frappe.ui.toolbar.clear_cache);
 			frappe.show_alert({
 				indicator: 'orange',
