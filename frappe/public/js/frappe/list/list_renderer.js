@@ -309,10 +309,7 @@ frappe.views.ListRenderer = Class.extend({
 
 	render_view: function (values) {
 		var me = this;
-		var $list_items = $(`
-			<div class="list-items">
-			</div>
-		`);
+		var $list_items = $('<div class="list-items"></div>');
 		me.wrapper.append($list_items);
 
 		values.map(function(value) {
@@ -371,10 +368,7 @@ frappe.views.ListRenderer = Class.extend({
 
 	render_tags: function (element, data) {
 		var me = this;
-		var tag_row = $(`<div class='tag-row'>
-			<div class='list-tag hidden-xs'></div>
-			<div class='clearfix'></div>
-		</div>`).appendTo(element);
+		var tag_row = $('<div class="tag-row"><div class="list-tag hidden-xs"></div><div class="clearfix"></div></div>').appendTo(element);
 
 		if (!me.list_view.tags_shown) {
 			tag_row.addClass('hide');
@@ -406,10 +400,7 @@ frappe.views.ListRenderer = Class.extend({
 	get_indicator_html: function (doc) {
 		var indicator = frappe.get_indicator(doc, this.doctype);
 		if (indicator) {
-			return `<span class='indicator ${indicator[1]} filterable'
-				data-filter='${indicator[2]}'>
-				${__(indicator[0])}
-			<span>`;
+			return "<span class='indicator ${indicator[1]} filterable' data-filter='${indicator[2]}'>${__(indicator[0])}<span>";
 		}
 		return '';
 	},
@@ -419,7 +410,7 @@ frappe.views.ListRenderer = Class.extend({
 		if (!indicator) {
 			return '';
 		}
-		return `<span class='indicator ${indicator[1]}' title='${__(indicator[0])}'></span>`;
+		return "<span class='indicator ${indicator[1]}' title='${__(indicator[0])}'></span>";
 	},
 
 	prepare_data: function (data) {
@@ -531,27 +522,20 @@ frappe.views.ListRenderer = Class.extend({
 			percent: data[field],
 			label: __(label)
 		}
-		$(parent).append(`<span class='progress' style='width: 100 %; float: left; margin: 5px 0px;'> \
-			<span class='progress- bar' title='${args.percent}% ${args.label}' \
-				style='width: ${args.percent}%;'></span>\
-		</span>`);
+		$(parent).append("<span class='progress' style='width: 100 %; float: left; margin: 5px 0px;'> "+
+		"	<span class='progress- bar' title='${args.percent}% ${args.label}' "+
+		"		style='width: ${args.percent}%;'></span>"+
+		"</span>");
 	},
 	render_icon: function (parent, icon_class, label) {
-		var icon_html = `<i class='${icon_class}' title='${__(label) || ''}'></i>`;
+		var icon_html = "<i class='${icon_class}' title='${__(label) || ''}'></i>";
 		$(parent).append(icon_html);
 	},
 	make_no_result: function () {
 		var new_button = frappe.boot.user.can_create.includes(this.doctype)
-			? (`<p><button class='btn btn-primary btn-sm'
-				list_view_doc='${this.doctype}'>
-					${__('Make a new {0}', [__(this.doctype)])}
-				</button></p>`)
+			? ("<p><button class='btn btn-primary btn-sm' list_view_doc='${this.doctype}'> ${__('Make a new {0}', [__(this.doctype)])}</button></p>")
 			: '';
-		var no_result_message =
-			`<div class='msg-box no-border'>
-				<p>${__('No {0} found', [__(this.doctype)])}</p>
-				${new_button}
-			</div>`;
+		var no_result_message = "<div class='msg-box no-border'><p>${__('No {0} found', [__(this.doctype)])}</p>${new_button}</div>";
 
 		return no_result_message;
 	},

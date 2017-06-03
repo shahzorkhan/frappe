@@ -14,9 +14,7 @@ frappe.ui.form.LinkedWith = Class.extend({
 			this.make_dialog();
 
 		$(this.dialog.body).html(
-			`<div class="text-muted text-center" style="padding: 30px 0px">
-				${__("Loading")}...
-			</div>`);
+			'<div class="text-muted text-center" style="padding: 30px 0px">${__("Loading")}...</div>');
 
 		this.dialog.show();
 	},
@@ -52,12 +50,12 @@ frappe.ui.form.LinkedWith = Class.extend({
 			html = __("Not Linked to any record");
 		} else {
 			html = Object.keys(linked_docs).map(function(dt) {
-				return `<div class="list-item-table" style="margin-bottom: 15px">\
-					${me.make_doc_head(dt)}\
-					${linked_docs[dt]
-						.map(function(doc) { return me.make_doc_row(doc, dt)})
-						.join("")}\
-				</div>`;
+				return '<div class="list-item-table" style="margin-bottom: 15px">'+
+					'${me.make_doc_head(dt)}'+
+					'${linked_docs[dt]'+
+						'.map(function(doc) { return me.make_doc_row(doc, dt)})'+
+						'.join("")}'+
+				'</div>';
 			});
 		}
 
@@ -102,9 +100,7 @@ frappe.ui.form.LinkedWith = Class.extend({
 		let flag;
 		if(!links) {
 			$(this.dialog.body).html(
-			`${this.frm.__linked_doctypes
-				? __("Not enough permission to see links")
-				: __("Not Linked to any record")}`);
+			'${this.frm.__linked_doctypes ? __("Not enough permission to see links"): __("Not Linked to any record")}');
 			flag = true;
 		}
 		flag = false;
@@ -152,19 +148,10 @@ frappe.ui.form.LinkedWith = Class.extend({
 	},
 
 	make_doc_head: function(heading) {
-		return `<div class="list-item list-item--head">
-		<div class="list-item__content">
-			${heading}
-		</div></div>`;
+		return '<div class="list-item list-item--head"><div class="list-item__content">${heading}</div></div>';
 	},
 
 	make_doc_row: function(doc, doctype) {
-		return `<div class="list-item-container">
-			<div class="list-item">
-				<div class="list-item__content bold">
-					<a href="#Form/${doctype}/${doc.name}">${doc.name}</a>
-				</div>
-			</div>
-		</div>`;
+		return '<div class="list-item-container"><div class="list-item"><div class="list-item__content bold"><a href="#Form/${doctype}/${doc.name}">${doc.name}</a></div></div></div>';
 	},
 });

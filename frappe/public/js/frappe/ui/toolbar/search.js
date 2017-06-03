@@ -258,16 +258,12 @@ frappe.search.SearchDialog = Class.extend({
 			|| are_expansive) {
 			this.full_lists['All Results'].append($('<div class="row module-section"></div>'));
 		}
-		var $results_col = $(`<div class="col-sm-${col_width} module-section-column" data-type="${type}">
-			<div class="h4 section-head">${type}</div>
-			<div class="section-body"></div>
-			</div>`);
+		var $results_col = $('<div class="col-sm-${col_width} module-section-column" data-type="${type}"><div class="h4 section-head">${type}</div><div class="section-body"></div></div>');
 		results.slice(0, section_length).forEach(function(result) {
 			$results_col.append(me.render_result(type, result));
 		});
 		if(results.length > section_length) {
-			$results_col.append(`<div style="margin-top:${margin_more}"><a class="section-more small"
-				data-category="${type}">${__("More...")}</a></div>`);
+			$results_col.append('<div style="margin-top:${margin_more}"><a class="section-more small" data-category="${type}">${__("More...")}</a></div>');
 		}
 
 		this.full_lists['All Results'].find('.module-section').last().append($results_col);

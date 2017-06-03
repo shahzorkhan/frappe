@@ -71,8 +71,8 @@ frappe.views.GanttView = frappe.views.ListRenderer.extend({
 				var item = me.get_item(task.id);
 
 				var html =
-					`<h5>${task.name}</h5>
-					<p>${task._start.format('MMM D')} - ${task._end.format('MMM D')}</p>`;
+					"<h5>${task.name}</h5>"+
+					"<p>${task._start.format('MMM D')} - ${task._end.format('MMM D')}</p>";
 
 				// custom html in doctype settings
 				var custom = me.settings.gantt_custom_popup_html;
@@ -108,7 +108,7 @@ frappe.views.GanttView = frappe.views.ListRenderer.extend({
 		$dropdown.find(".dropdown-menu")
 				.append(dropdown_list);
 		me.list_view.$page
-			.find(`[data-list-renderer='Gantt'] > .list-row-right`)
+			.find("[data-list-renderer='Gantt'] > .list-row-right")
 			.css("margin-right", "15px").html($dropdown)
 		$dropdown.on("click", ".option", function() {
 			var mode = $(this).data('value');

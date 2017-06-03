@@ -364,7 +364,7 @@ frappe.provide("frappe.views");
 			var cur_list = store.getState().cur_list;
 			var columns = store.getState().columns;
 			var list_row_right =
-				cur_list.$page.find(`[data-list-renderer='Kanban'] .list-row-right`)
+				cur_list.$page.find("[data-list-renderer='Kanban'] .list-row-right")
 				.css('margin-right', '15px');
 			list_row_right.empty();
 

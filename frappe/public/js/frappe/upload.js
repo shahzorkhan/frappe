@@ -58,20 +58,18 @@ frappe.upload = {
 				$upload.data('attached_files', file_array);
 
 				// List of files in a grid
-				$uploaded_files_wrapper.append(`
-					<div class="list-item list-item--head">
-						<div class="list-item__content list-item__content--flex-2">
-							${__('Filename')}
-						</div>
-						${opts.show_private
-						? `<div class="list-item__content file-public-column">
-							${__('Public')}
-							</div>`
-						: ''}
-						<div class="list-item__content list-item__content--activity" style="flex: 0 0 32px">
-						</div>
-					</div>
-				`);
+				$uploaded_files_wrapper.append(
+					'<div class="list-item list-item--head">'+
+					'	<div class="list-item__content list-item__content--flex-2">'+
+					'		${__("Filename")}'+
+					'	</div>'+
+					'	${opts.show_private'+
+					'	? \'<div class="list-item__content file-public-column">${__("Public")}</div>\'+
+					'	: ""}'+
+					'	<div class="list-item__content list-item__content--activity" style="flex: 0 0 32px">'+
+					'	</div>'+
+					'</div>'
+				);
 				var file_pills = file_array.map(
 					function(file) { return frappe.upload.make_file_row(file, opts.show_private)}
 				);
@@ -102,7 +100,7 @@ frappe.upload = {
 					return file;
 				});
 				$uploaded_files_wrapper
-					.find(`.list-item-container[data-filename="${filename}"] .fa.fa-fw`)
+					.find('.list-item-container[data-filename="${filename}"] .fa.fa-fw')
 					.toggleClass('fa-lock fa-unlock-alt');
 
 				$upload.data('attached_files', attached_files);
@@ -114,7 +112,7 @@ frappe.upload = {
 
 				// remove row from dom
 				$uploaded_files_wrapper
-					.find(`.list-item-container[data-filename="${filename}"]`)
+					.find('.list-item-container[data-filename="${filename}"]')
 					.remove();
 
 				if(attached_files.length === 0) {
@@ -155,26 +153,25 @@ frappe.upload = {
 		});
 	},
 	make_file_row: function(file, show_private ) {
-		var template = `
-			<div class="list-item-container" data-filename="${file.name}">
-				<div class="list-item">
-					<div class="list-item__content list-item__content--flex-2 ellipsis">
-						<span>${file.name}</span>
-						<span style="margin-top: 1px; margin-left: 5px;"
-							class="fa fa-fw text-warning ${file.is_private ? 'fa-lock': 'fa-unlock-alt'}">
-						</span>
-					</div>
-					${show_private?
-						`<div class="list-item__content file-public-column ellipsis">
-							<input type="checkbox" ${!file.is_private ? 'checked' : ''}/></div>`
-					: ''}
-					<div class="list-item__content list-item__content--activity ellipsis" style="flex: 0 0 32px;">
-					<button class="btn btn-default btn-xs text-muted uploaded-file-remove">
-							<span class="fa fa-remove"></span>
-						</button>
-					</div>
-				</div>
-			</div>`;
+		var template =
+			'<div class="list-item-container" data-filename="${file.name}">'+
+			'	<div class="list-item">'+
+			'		<div class="list-item__content list-item__content--flex-2 ellipsis">'+
+			'			<span>${file.name}</span>'+
+			'			<span style="margin-top: 1px; margin-left: 5px;"'+
+			'				class="fa fa-fw text-warning ${file.is_private ? \"fa-lock\": \"fa-unlock-alt\"}">'+
+			'			</span>'+
+			'		</div>'+
+			'		${show_private?'+
+			'			\'<div class="list-item__content file-public-column ellipsis"><input type="checkbox" ${!file.is_private ? "checked" : ""}/></div>\''+
+			'		: ""}'+
+			'		<div class="list-item__content list-item__content--activity ellipsis" style="flex: 0 0 32px;">'+
+			'		<button class="btn btn-default btn-xs text-muted uploaded-file-remove">'+
+			'				<span class="fa fa-remove"></span>'+
+			'			</button>'+
+			'		</div>'+
+			'	</div>'+
+			'</div>';
 
 		return $(template);
 	},
